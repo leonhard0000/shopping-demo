@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NovaCart | 購物商城</title>
+    <meta
+      name="description"
+      content="NovaCart 是一個現代化的購物網站原型，包含產品列表、促銷區和購物車功能。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <div class="brand-wrap">
+          <div class="brand-mark">N</div>
+          <span class="brand-name">NovaCart</span>
+        </div>
+
+        <nav class="main-nav" aria-label="主導覽">
+          <a href="#featured">精選</a>
+          <a href="#shop">商城</a>
+          <a href="#deals">促銷</a>
+          <a href="#reviews">評價</a>
+        </nav>
+
+        <div class="actions">
+          <button class="icon-btn" aria-label="搜尋">⌕</button>
+          <button class="icon-btn" aria-label="使用者">◎</button>
+          <button class="cart-btn" aria-label="購物車">
+            🛒
+            <span class="cart-count" id="cart-count">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">限時優惠 · 2026 秋季特賣</span>
+            <h1>用心選品，讓生活更輕鬆</h1>
+            <p>
+              探索高品質家電、生活好物與時尚單品，享受快速配送與滿額折扣。
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#shop">立即購物</a>
+              <a class="btn btn-secondary" href="#featured">查看熱銷</a>
+            </div>
+            <ul class="hero-metrics">
+              <li><strong>15K+</strong><span>顧客好評</span></li>
+              <li><strong>2日</strong><span>快速到貨</span></li>
+              <li><strong>4.9/5</strong><span>銷售評分</span></li>
+            </ul>
+          </div>
+
+          <div class="hero-visual" aria-label="產品展示">
+            <div class="product-card showcase">
+              <div class="showcase-badge">熱銷</div>
+              <div class="showcase-image image-watch"></div>
+              <div class="showcase-info">
+                <span>智能手錶</span>
+                <strong>$3,490</strong>
+              </div>
+            </div>
+            <div class="floating-card card-mini mini-one">
+              <span>超值推薦</span>
+              <strong>省 30%</strong>
+            </div>
+            <div class="floating-card card-mini mini-two">
+              <span>今日到貨</span>
+              <strong>24h 內出貨</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature-strip" id="featured">
+        <div class="container feature-items">
+          <div class="feature-item">
+            <span class="feature-icon">🚚</span>
+            <div>
+              <h3>免運門檻低</h3>
+              <p>滿 NT$ 2,000 免運</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🔒</span>
+            <div>
+              <h3>安全支付</h3>
+              <p>SSL 加密交易</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">↩</span>
+            <div>
+              <h3>7天退換</h3>
+              <p>安心保固服務</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section categories">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow muted">分類</span>
+              <h2>選購靈感</h2>
+            </div>
+          </div>
+          <div class="category-grid">
+            <article class="category-card">
+              <div class="category-art art-lamp"></div>
+              <h3>家居生活</h3>
+            </article>
+            <article class="category-card">
+              <div class="category-art art-tech"></div>
+              <h3>3C 數位</h3>
+            </article>
+            <article class="category-card">
+              <div class="category-art art-fashion"></div>
+              <h3>時尚穿搭</h3>
+            </article>
+            <article class="category-card">
+              <div class="category-art art-beauty"></div>
+              <h3>美妝保養</h3>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section products" id="shop">
+        <div class="container">
+          <div class="section-head row-head">
+            <div>
+              <span class="eyebrow muted">熱銷商品</span>
+              <h2>本週推薦</h2>
+            </div>
+            <div class="shop-tools">
+              <div class="search-box">
+                <span>⌕</span>
+                <input type="text" id="search-input" placeholder="搜尋產品" />
+              </div>
+              <select id="category-filter" aria-label="篩選分類">
+                <option value="all">全部分類</option>
+                <option value="家居生活">家居生活</option>
+                <option value="3C 數位">3C 數位</option>
+                <option value="時尚穿搭">時尚穿搭</option>
+                <option value="美妝保養">美妝保養</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="product-grid" id="product-grid"></div>
+        </div>
+      </section>
+
+      <section class="section sale-banner" id="deals">
+        <div class="container sale-box">
+          <div>
+            <span class="eyebrow">限量優惠</span>
+            <h2>會員週 · 全站 8 折起</h2>
+          </div>
+          <a href="#shop" class="btn btn-primary">立即領券</a>
+        </div>
+      </section>
+
+      <section class="section reviews" id="reviews">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow muted">顧客聲音</span>
+              <h2>購物體驗評價</h2>
+            </div>
+          </div>
+          <div class="review-grid">
+            <article class="review-card">
+              <div class="stars">★★★★★</div>
+              <p>「商品品質非常穩定，配送也很快速，整體購物體驗很順暢。」</p>
+              <div class="reviewer">— Maya, 3C 消費者</div>
+            </article>
+            <article class="review-card">
+              <div class="stars">★★★★★</div>
+              <p>「價格親切，包裝細緻，客服回覆很迅速，會繼續回購。」</p>
+              <div class="reviewer">— Leo, 家居生活</div>
+            </article>
+            <article class="review-card">
+              <div class="stars">★★★★★</div>
+              <p>「從首頁到下單的流程非常順，版面簡潔又好用。」</p>
+              <div class="reviewer">— Chloe, 時尚族群</div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside class="cart-panel" id="cart-panel" aria-label="購物車">
+      <div class="cart-header">
+        <h3>購物車</h3>
+        <button class="close-cart" id="close-cart" aria-label="關閉購物車">✕</button>
+      </div>
+      <div id="cart-items" class="cart-items"></div>
+      <div class="cart-summary">
+        <div class="summary-row">
+          <span>小計</span>
+          <strong id="subtotal">NT$ 0</strong>
+        </div>
+        <div class="summary-row">
+          <span>運費</span>
+          <strong id="shipping">NT$ 0</strong>
+        </div>
+        <div class="summary-row total-row">
+          <span>總計</span>
+          <strong id="total">NT$ 0</strong>
+        </div>
+        <button class="btn btn-primary checkout-btn">前往結帳</button>
+      </div>
+    </aside>
+
+    <div class="toast" id="toast" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

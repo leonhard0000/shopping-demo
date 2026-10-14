@@ -34,6 +34,7 @@
         <div class="actions">
           <button class="icon-btn" aria-label="搜尋">⌕</button>
           <button class="icon-btn" aria-label="使用者">◎</button>
+          <button class="icon-btn" id="register-trigger" aria-label="會員註冊">✚</button>
           <button class="cart-btn" aria-label="購物車">
             🛒
             <span class="cart-count" id="cart-count">0</span>
@@ -225,6 +226,44 @@
         <button class="btn btn-primary checkout-btn">前往結帳</button>
       </div>
     </aside>
+
+    <div class="auth-modal" id="auth-modal" aria-hidden="true">
+      <div class="auth-panel" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+        <button class="close-auth" id="close-auth" aria-label="關閉註冊">✕</button>
+        <div class="auth-header">
+          <span class="eyebrow">會員註冊</span>
+          <h3 id="auth-title">加入 NovaCart</h3>
+        </div>
+
+        <form id="register-form" class="auth-form" novalidate>
+          <div class="form-row">
+            <label for="register-name">姓名</label>
+            <input id="register-name" name="name" type="text" placeholder="請輸入您的姓名" autocomplete="name" />
+          </div>
+
+          <div class="form-row">
+            <label for="register-email">電子郵件</label>
+            <input id="register-email" name="email" type="email" placeholder="example@mail.com" autocomplete="email" />
+          </div>
+
+          <div class="form-row">
+            <label for="register-password">密碼</label>
+            <input id="register-password" name="password" type="password" placeholder="至少 6 碼" autocomplete="new-password" />
+          </div>
+
+          <div class="form-row">
+            <label for="register-confirm-password">確認密碼</label>
+            <input id="register-confirm-password" name="confirmPassword" type="password" placeholder="再次輸入密碼" autocomplete="new-password" />
+          </div>
+
+          <div class="auth-actions">
+            <button type="submit" class="btn btn-primary">註冊會員</button>
+          </div>
+        </form>
+
+        <p class="auth-message" id="auth-message" aria-live="polite"></p>
+      </div>
+    </div>
 
     <div class="toast" id="toast" aria-live="polite"></div>
 

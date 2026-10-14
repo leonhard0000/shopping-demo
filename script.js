@@ -22,6 +22,139 @@ const cartPanel = document.getElementById('cart-panel');
 const searchInput = document.getElementById('search-input');
 const categoryFilter = document.getElementById('category-filter');
 const closeCart = document.getElementById('close-cart');
+const registerTrigger = document.getElementById('register-trigger');
+const authModal = document.getElementById('auth-modal');
+const closeAuth = document.getElementById('close-auth');
+const registerForm = document.getElementById('register-form');
+const authMessage = document.getElementById('auth-message');
+
+const USERS_KEY = 'novacart-users';
+const SESSION_KEY = 'novacart-session';
+
+function getRegisteredUsers() {
+  try {
+    return JSON.parse(localStorage.getItem(USERS_KEY)) || [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveRegisteredUsers(users) {
+  localStorage.setItem(USERS_KEY, JSON.stringify(users));
+}
+
+function getCurrentUser() {
+  try {
+    return JSON.parse(sessionStorage.getItem(SESSION_KEY));
+  } catch (error) {
+    return null;
+  }
+}
+
+function setCurrentUser(user) {
+  sessionStorage.setItem(SESSION_KEY, JSON.stringify(user));
+}
+
+function updateAuthButton() {
+  const currentUser = getCurrentUser();
+
+  if (currentUser) {
+    registerTrigger.textContent = '👤';
+    registerTrigger.setAttribute('aria-label', `會員中心：${currentUser.name}`);
+    registerTrigger.title = `歡迎，${currentUser.name}`;
+    return;
+  }
+
+  registerTrigger.textContent = '✚';
+  registerTrigger.setAttribute('aria-label', '會員註冊');
+  registerTrigger.title = '會員註冊';
+}
+
+function showAuthMessage(message, type = 'error') {
+  authMessage.textContent = message;
+  authMessage.classList.remove('error', 'success');
+  authMessage.classList.add(type);
+}
+
+function openAuthModal() {
+  authModal.classList.add('open');
+  authModal.setAttribute('aria-hidden', 'false');
+}
+
+function closeAuthModal() {
+  authModal.classList.remove('open');
+  authModal.setAttribute('aria-hidden', 'true');
+  registerForm.reset();
+  showAuthMessage('');
+}
+
+registerTrigger.addEventListener('click', openAuthModal);
+closeAuth.addEventListener('click', closeAuthModal);
+
+authModal.addEventListener('click', (event) => {
+  if (event.target === authModal) {
+    closeAuthModal();
+  }
+});
+
+registerForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(registerForm);
+  const name = String(formData.get('name') || '').trim();
+  const email = String(formData.get('email') || '').trim();
+  const password = String(formData.get('password') || '');
+  const confirmPassword = String(formData.get('confirmPassword') || '');
+
+  if (!name || !email || !password || !confirmPassword) {
+    showAuthMessage('請填寫完整的註冊資料。', 'error');
+    return;
+  }
+
+  if (name.length < 2) {
+    showAuthMessage('姓名至少需要 2 個字元。', 'error');
+    return;
+  }
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    showAuthMessage('請輸入有效的電子郵件地址。', 'error');
+    return;
+  }
+
+  if (password.length < 6) {
+    showAuthMessage('密碼長度至少為 6 碼。', 'error');
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    showAuthMessage('兩次輸入的密碼不一致。', 'error');
+    return;
+  }
+
+  const users = getRegisteredUsers();
+  const exists = users.some((user) => user.email.toLowerCase() === email.toLowerCase());
+
+  if (exists) {
+    showAuthMessage('此電子郵件已經註冊過，請使用其他信箱。', 'error');
+    return;
+  }
+
+  const newUser = {
+    id: Date.now(),
+    name,
+    email: email.toLowerCase(),
+    password,
+  };
+
+  users.push(newUser);
+  saveRegisteredUsers(users);
+  setCurrentUser({ id: newUser.id, name: newUser.name, email: newUser.email });
+
+  closeAuthModal();
+  updateAuthButton();
+  showToast(`${newUser.name} 註冊成功！`);
+});
 
 function renderProducts() {
   const keyword = searchInput.value.trim().toLowerCase();
